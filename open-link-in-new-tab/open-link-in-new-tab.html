@@ -6,7 +6,7 @@
 
 Works everywhere: <a href="http://gooogle.com" target="_blank">Normal Link</a> </br>
 Works everywhere: <a  href="#" onclick="window.open('https://www.google.com', '_blank');">on click</a> </br>
-Works everywhere: <a  href="#" onclick="setTimeout(() => window.open('https://www.google.com', '_blank'), 500);">from timer</a></br>
+All browsers problem: <a  href="#" onclick="setTimeout(() => window.open('https://www.google.com', '_blank'), 500);">from timer</a></br>
 Firefox problem: <a  href="#" onmouseover="
 	console.log('mouse over');
 	window.open('https://www.google.com', '_blank');
@@ -22,7 +22,7 @@ return false;
 
 
 
-All browsers problem:<script>
+Firefox problem:<script>
 function fromHttpRequest() {
 	const Http = new XMLHttpRequest();
 	const url='https://jsonplaceholder.typicode.com/posts';
