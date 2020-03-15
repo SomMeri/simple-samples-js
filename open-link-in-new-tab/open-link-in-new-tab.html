@@ -6,13 +6,13 @@
 
 Works everywhere: <a href="http://gooogle.com" target="_blank">Normal Link</a> </br>
 Works everywhere: <a  href="#" onclick="window.open('https://www.google.com', '_blank');">on click</a> </br>
-All browsers problem: <a  href="#" onclick="setTimeout(() => window.open('https://www.google.com', '_blank'), 500);">from timer</a></br>
-Firefox problem: <a  href="#" onmouseover="
+Works everywhere: <a  href="#" onclick="setTimeout(() => window.open('https://www.google.com', '_blank'), 500);">from timer</a></br>
+Firefox problem, Chrome unpredictable: <a  href="#" onmouseover="
 	console.log('mouse over');
 	window.open('https://www.google.com', '_blank');
 ">on mouseover</a> </br>
 
-All browsers problem:
+Firefox problem, Chrome unpredictable:
 <a  href="#" onmouseover="
 setTimeout(function() {
 	window.open('https://www.google.com', '_blank');
@@ -79,6 +79,7 @@ function requestResponseStartsInterval() {
 }
 </script>
 <a  href="#" onclick="requestResponseStartsInterval();">request response starts interval</a></br>
+
 
 Script in body has all browsers problem.
 <script>
