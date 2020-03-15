@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<TITLE>Open New Tab Experiments</TITLE>
+</HEAD>
+<BODY BGCOLOR="FFFFFF">
+
+Works everywhere: <a href="http://gooogle.com" target="_blank">Normal Link</a> </br>
+Works everywhere: <a  href="#" onclick="window.open('https://www.google.com', '_blank');">on click</a> </br>
+Works everywhere: <a  href="#" onclick="setTimeout(() => window.open('https://www.google.com', '_blank'), 500);">from timer</a></br>
+Firefox problem: <a  href="#" onmouseover="
+	console.log('mouse over');
+	window.open('https://www.google.com', '_blank');
+">on mouseover</a> </br>
+
+All browsers problem:
+<a  href="#" onmouseover="
+setTimeout(function() {
+	window.open('https://www.google.com', '_blank');
+} ,500);
+return false;
+">timer on mouseover</a></br>
+
+
+
+All browsers problem:<script>
+function fromHttpRequest() {
+	const Http = new XMLHttpRequest();
+	const url='https://jsonplaceholder.typicode.com/posts';
+	Http.open("GET", url);
+	Http.send();
+
+	Http.onreadystatechange = (e) => {
+	  console.log(Http.responseText)
+	  window.open('https://www.google.com', '_blank');
+	}
+}
+</script>
+<a  href="#" onclick="fromHttpRequest();">from http request</a></br>
+
+Works everywhere: <script>
+function intervalListensForRequestResponse() {
+	var iHaveTheResponse; // shared variable
+
+	// send request
+	const Http = new XMLHttpRequest();
+	const url='https://jsonplaceholder.typicode.com/posts';
+	Http.open("GET", url);
+	Http.send();
+
+	Http.onreadystatechange = (e) => {
+	  console.log(Http.responseText)
+	  iHaveTheResponse = 'https://www.google.com';
+	}
+
+	// periodically check the variable
+	var refreshIntervalId = setInterval(function(){ 
+			 console.log('tick ' + iHaveTheResponse);
+			 if (iHaveTheResponse) {
+				 window.open(iHaveTheResponse, '_blank')
+				 clearInterval(refreshIntervalId);
+			 }
+	 }, 500);
+	return false;
+}
+</script>
+<a  href="#" onclick="intervalListensForRequestResponse();">interval listens for request response</a></br>
+
+Firefox problem:<script>
+function requestResponseStartsInterval() {
+	const Http = new XMLHttpRequest();
+	const url='https://jsonplaceholder.typicode.com/posts';
+	Http.open("GET", url);
+	Http.send();
+
+	Http.onreadystatechange = (e) => {
+	  console.log(Http.responseText)
+	  setTimeout(() => window.open('https://www.google.com', '_blank'), 500)
+	}
+}
+</script>
+<a  href="#" onclick="requestResponseStartsInterval();">request response starts interval</a></br>
+
+Script in body has all browsers problem.
+<script>
+	console.log("installing");
+	setTimeout(function() {
+		console.log("running");
+		window.open('https://www.google.com', '_blank');
+	}, 500);
+</script>
+</BODY>
+</HTML>
+
