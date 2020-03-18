@@ -7,12 +7,12 @@
 Works everywhere: <a href="http://gooogle.com" target="_blank">Normal Link</a> </br>
 Works everywhere: <a  href="#" onclick="window.open('https://www.google.com', '_blank');">on click</a> </br>
 Works everywhere: <a  href="#" onclick="setTimeout(() => window.open('https://www.google.com', '_blank'), 500);">from timer</a></br>
-Firefox problem, Chrome unpredictable: <a  href="#" onmouseover="
+Firefox and Edge blocks, Chrome mostly blocks: <a  href="#" onmouseover="
 	console.log('mouse over');
 	window.open('https://www.google.com', '_blank');
 ">on mouseover</a> </br>
 
-Firefox problem, Chrome unpredictable:
+Firefox and Edge blocks, Chrome mostly blocks:
 <a  href="#" onmouseover="
 setTimeout(function() {
 	window.open('https://www.google.com', '_blank');
@@ -20,9 +20,7 @@ setTimeout(function() {
 return false;
 ">timer on mouseover</a></br>
 
-
-
-Firefox problem:<script>
+Firefox blocks, others ok:<script>
 function fromHttpRequest() {
 	const Http = new XMLHttpRequest();
 	const url='https://jsonplaceholder.typicode.com/posts';
@@ -65,7 +63,7 @@ function intervalListensForRequestResponse() {
 </script>
 <a  href="#" onclick="intervalListensForRequestResponse();">interval listens for request response</a></br>
 
-Firefox problem:<script>
+Firefox blocks, others ok:<script>
 function requestResponseStartsInterval() {
 	const Http = new XMLHttpRequest();
 	const url='https://jsonplaceholder.typicode.com/posts';
@@ -86,7 +84,9 @@ Script in body has all browsers problem.
 	console.log("installing");
 	setTimeout(function() {
 		console.log("running");
-		window.open('https://www.google.com', '_blank');
+		// disabled here, because it likely stops 
+		// mouseover in chrome when enabled
+		// window.open('https://www.google.com', '_blank');
 	}, 500);
 </script>
 </BODY>
