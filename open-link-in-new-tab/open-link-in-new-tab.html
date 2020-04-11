@@ -63,7 +63,7 @@ function intervalListensForRequestResponse() {
 </script>
 <a  href="#" onclick="intervalListensForRequestResponse();">interval listens for request response</a></br>
 
-Firefox blocks, others ok:<script>
+Firefox and Edge blocks, Chrome ok:<script>
 function requestResponseStartsInterval() {
 	const Http = new XMLHttpRequest();
 	const url='https://jsonplaceholder.typicode.com/posts';
@@ -78,6 +78,28 @@ function requestResponseStartsInterval() {
 </script>
 <a  href="#" onclick="requestResponseStartsInterval();">request response starts interval</a></br>
 
+Works everywhere: <script>
+function startByOpeningTheWindow() {
+	var newTab = window.open("", '_blank');
+	if (newTab==null) {
+		return ;
+	}
+
+
+	// send request
+	const Http = new XMLHttpRequest();
+	const url='https://jsonplaceholder.typicode.com/posts';
+	Http.open("GET", url);
+	Http.send();
+
+	Http.onreadystatechange = (e) => {
+	  console.log(Http.responseText);
+	  newTab.location.href = 'https://www.google.com';
+	}
+	return false;
+}
+</script>
+<a  href="#" onclick="startByOpeningTheWindow();">first open the window, change url later</a></br>
 
 Script in body has all browsers problem.
 <script>
